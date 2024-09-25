@@ -9,3 +9,5 @@ out/
 
 # Environment variables
 .env
+
+.vscode/

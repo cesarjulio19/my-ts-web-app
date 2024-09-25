@@ -10,18 +10,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
 </head>
 <body>
-  <h1 id="greeting"></h1>
-  <script src="index.js"></script>
-  <input type="text" id="name" value="">
-  <button id="addbutton"> Agregar card</button>
 
-  <ion-card id="card">
-    <ion-card-header>
-      <ion-card-title id="title">Card Title</ion-card-title>
-    </ion-card-header>
-  
-    <ion-card-content>
-    </ion-card-content>
-  </ion-card>
+  <div id="input-container">
+
+    <input type="text" id="name" value="">
+    <ion-button id="addbutton">Add</ion-button>
+
+  </div>
+
+  <div id="cards-container">
+
+  </div>
+
+  <script src="/dist/index.js"></script>
 </body>
 </html>

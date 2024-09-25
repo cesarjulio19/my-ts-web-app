@@ -1,25 +1,42 @@
-// src/index.ts
-function greet(name: string): void {
-    const greeting = `Hello, ${name}!`;
-    const element = document.getElementById("greeting");
-    if (element) {
-      element.innerText = greeting;
-    }
-  }
+function createCard(name: string): HTMLElement{
+  // Crea el ion-card utilizando una cadena HTML para inicializar correctamente los componentes de Ionic
+  const cardHtml = `
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>${name}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+      </ion-card-content>
+    </ion-card>
+  `;
 
-  const boton = document.getElementById("button");
-  const card = document.getElementById("card");
-  boton?.addEventListener("click", () => {
-    var input = document.getElementById("name");
-    var valor = (<HTMLInputElement>document.getElementById("name")).value;
-     card
-  
-    
-    
-  });
+  // Crea un div temporal para insertar la cadena HTML
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = cardHtml.trim();
 
-  function addcard(name: string): void{
-    const cardname = document.getElementById('name')
-  }
+  // Devuelve el ion-card que se acaba de crear
+  return wrapper.firstElementChild as HTMLElement;
+
+}
+
+document.getElementById('addbutton')?.addEventListener('click', () => {
+  const inputElement = document.getElementById('name') as HTMLInputElement;
+  const nameValue = inputElement.value;
+
   
-  greet("World");
+  if (nameValue) {
+      
+      const newCard = createCard(nameValue);
+
+      
+      const cardsContainer = document.getElementById('cards-container');
+      cardsContainer?.appendChild(newCard);
+
+      
+      inputElement.value = '';
+  } else {
+      alert("Por favor ingrese un nombre");
+  }
+});
+
+
