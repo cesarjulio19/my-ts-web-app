@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import { Observable, from } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 function createCard(name: string): HTMLElement{
@@ -24,7 +24,7 @@ function createCard(name: string): HTMLElement{
 
 function fetchImage(imageurl: string): Observable<string>{
 
-  return from(axios.get(imageurl, {responseType: 'blob'})).pipe(
+  /*return from(axios.get(imageurl, {responseType: 'blob'})).pipe(
     map(response =>{
       // Convierte el Blob de la respuesta a una URL válida
       const imageBlob = response.data;
@@ -34,7 +34,27 @@ function fetchImage(imageurl: string): Observable<string>{
       console.error(error);
       throw new Error('No se pudo cargar la imagen.');
     })
+  );*/
+
+  return from(
+    fetch(imageurl)
+    .then(response => {
+      if(!response.ok){
+        throw new Error(`Error al obtener la imagen: ${response.statusText}`);
+      }
+      return response.blob();
+    })
+    .then(imageBlob => {
+      return URL.createObjectURL(imageBlob);
+    })
+  ).pipe(
+    catchError(error =>{
+      console.error(error);
+      throw new Error('No se pudo cargar la imagen.');
+    })
   );
+
+
 
 }
 
@@ -84,6 +104,21 @@ document.addEventListener( 'DOMContentLoaded', () => {
   });
 
   document.getElementById('addbuttonImage')?.addEventListener('click', () => {
+
+    const image = document.createElement("img")
+    const divimg = document.getElementById('images-container')
+
+    fetchImage("Https://picsum.photos/200/300").subscribe({
+      next:(url: string) => {
+        image.src = url;
+        divimg?.appendChild(image);
+      },
+      error: (err) =>{
+        console.error(err);
+      }
+    });
+
+
 
   });
 
