@@ -19,24 +19,57 @@ function createCard(name: string): HTMLElement{
 
 }
 
-document.getElementById('addbutton')?.addEventListener('click', () => {
-  const inputElement = document.getElementById('name') as HTMLInputElement;
-  const nameValue = inputElement.value;
+document.addEventListener( 'DOMContentLoaded', () => {
+
+  document.getElementById('addbutton')?.addEventListener('click', () => {
+    const inputElement = document.getElementById('name') as HTMLInputElement;
+    const nameValue = inputElement.value;
 
   
-  if (nameValue) {
-      
-      const newCard = createCard(nameValue);
+    
+    if (nameValue) {
+        
+        const newCard = createCard(nameValue);
 
-      
-      const cardsContainer = document.getElementById('cards-container');
-      cardsContainer?.appendChild(newCard);
+        let promesa =new Promise<HTMLElement>((resolve, reject) =>{
+          console.log("creando la carta....")
+          setTimeout(()=>{
+            const newCard = createCard(nameValue);
+            if(newCard){
+              resolve(newCard)
+            }else{
+              reject('error la crear la carta')
+            }
 
-      
-      inputElement.value = '';
-  } else {
-      alert("Por favor ingrese un nombre");
-  }
+          }, 2000);
+
+        })
+
+        promesa
+        .then(resultado =>{
+
+          const cardsContainer = document.getElementById('cards-container');
+          cardsContainer?.appendChild(resultado);
+
+        })
+        .catch(error =>{
+          console.error("Error:", error);
+        })
+
+
+  
+        
+        /*const cardsContainer = document.getElementById('cards-container');
+        cardsContainer?.appendChild(newCard);*/
+  
+        
+        inputElement.value = '';
+    } else {
+        alert("Por favor ingrese un nombre");
+    }
+  });
+
+
 });
 
 
