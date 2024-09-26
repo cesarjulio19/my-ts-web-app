@@ -38,7 +38,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
             if(newCard){
               resolve(newCard)
             }else{
-              reject('error la crear la carta')
+              reject('error al crear la carta')
             }
 
           }, 2000);
