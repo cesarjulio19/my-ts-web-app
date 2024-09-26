@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { Observable, from } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 function createCard(name: string): HTMLElement{
   // Crea el ion-card utilizando una cadena HTML para inicializar correctamente los componentes de Ionic
   const cardHtml = `
@@ -16,6 +19,22 @@ function createCard(name: string): HTMLElement{
 
   // Devuelve el ion-card que se acaba de crear
   return wrapper.firstElementChild as HTMLElement;
+
+}
+
+function fetchImage(imageurl: string): Observable<string>{
+
+  return from(axios.get(imageurl, {responseType: 'blob'})).pipe(
+    map(response =>{
+      // Convierte el Blob de la respuesta a una URL válida
+      const imageBlob = response.data;
+      return URL.createObjectURL(imageBlob);
+    }),
+    catchError(error =>{
+      console.error(error);
+      throw new Error('No se pudo cargar la imagen.');
+    })
+  );
 
 }
 
@@ -62,6 +81,10 @@ document.addEventListener( 'DOMContentLoaded', () => {
     } else {
         alert("Por favor ingrese un nombre");
     }
+  });
+
+  document.getElementById('addbuttonImage')?.addEventListener('click', () => {
+
   });
 
 
