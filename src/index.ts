@@ -56,11 +56,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
           console.error("Error:", error);
         })
 
-
-  
-        
-        /*const cardsContainer = document.getElementById('cards-container');
-        cardsContainer?.appendChild(newCard);*/
   
         
         inputElement.value = '';
