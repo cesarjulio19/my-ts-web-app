@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true
+  "lib": ["ES2022", "dom"], // Añadimos "dom" para incluir las APIs del navegador
+  "module": "esnext",
+  "target": "es2022",
+  "strict": true,
+  "esModuleInterop": true,
+  "skipLibCheck": true,
+  "moduleResolution": "node",
+  "outDir": "dist"
   },
-  "include": ["src"]
-}
+  "include": ["src"],
+  "exclude": ["node_modules"]
+  }

@@ -1,4 +1,4 @@
-
+import axios from 'axios';
 import { Observable, from } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 function createCard(name: string): HTMLElement{
@@ -24,7 +24,7 @@ function createCard(name: string): HTMLElement{
 
 function fetchImage(imageurl: string): Observable<string>{
 
-  /*return from(axios.get(imageurl, {responseType: 'blob'})).pipe(
+  return from(axios.get(imageurl, {responseType: 'blob'})).pipe(
     map(response =>{
       // Convierte el Blob de la respuesta a una URL válida
       const imageBlob = response.data;
@@ -34,9 +34,9 @@ function fetchImage(imageurl: string): Observable<string>{
       console.error(error);
       throw new Error('No se pudo cargar la imagen.');
     })
-  );*/
+  );
 
-  return from(
+ /* return from(
     fetch(imageurl)
     .then(response => {
       if(!response.ok){
@@ -52,7 +52,7 @@ function fetchImage(imageurl: string): Observable<string>{
       console.error(error);
       throw new Error('No se pudo cargar la imagen.');
     })
-  );
+  );*/
 
 
 
@@ -108,7 +108,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
     const image = document.createElement("img")
     const divimg = document.getElementById('images-container')
 
-    fetchImage("Https://picsum.photos/200/300").subscribe({
+    fetchImage("https://picsum.photos/200/300").subscribe({
       next:(url: string) => {
         image.src = url;
         divimg?.appendChild(image);
